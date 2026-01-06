@@ -1,0 +1,9 @@
+.kfc-btn {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.kfc-btn:hover {
+    background-color: #bb2d3b;
+    border-color: #bb2d3b;
+}
