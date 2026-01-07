@@ -1,17 +1,38 @@
-// ====== LOGIN (solo si existen los elementos) ======
 const user = "cone@gmail.com";
 const password = "milo123";
 
 const inputUser = document.getElementById("email");
 const inputPassword = document.getElementById("password");
 const btnSesion = document.getElementById("btn");
-
+ 
 if (btnSesion && inputUser && inputPassword) {
   btnSesion.addEventListener("click", () => {
     if (user === inputUser.value && password === inputPassword.value) {
-      window.location = "./kfc.html";
+
+      sessionStorage.setItem("session", "yes");
+
+      Swal.fire({
+        title: "Credenciales correctas",
+        text: "Bienvenido",
+        icon: "success",
+        confirmButtonText: "Cool",
+      })
+      
+      setTimeout(() => {
+        window.location = "./kfc.html";
+        
+      }, 1000);
+      
+     
+
+     
     } else {
-      alert("Usuario o contraseña incorrectos");
+      Swal.fire({
+        title: "Error!",
+        text: "Revisa bien tus credenciales",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
     }
   });
 }
