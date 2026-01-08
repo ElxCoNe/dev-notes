@@ -8,4 +8,8 @@ function incrementLap() {
 }
 
 
+incrementLap()
+incrementLap()
+incrementLap()
+
 console.log(lapsCompleted)
