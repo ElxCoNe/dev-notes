@@ -1,0 +1,15 @@
+/home/milo/Documents/dev-notes/csharp/FirstProject/bin/Debug/net10.0/FirstProject
+/home/milo/Documents/dev-notes/csharp/FirstProject/bin/Debug/net10.0/FirstProject.deps.json
+/home/milo/Documents/dev-notes/csharp/FirstProject/bin/Debug/net10.0/FirstProject.runtimeconfig.json
+/home/milo/Documents/dev-notes/csharp/FirstProject/bin/Debug/net10.0/FirstProject.dll
+/home/milo/Documents/dev-notes/csharp/FirstProject/bin/Debug/net10.0/FirstProject.pdb
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.GeneratedMSBuildEditorConfig.editorconfig
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.AssemblyInfoInputs.cache
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.AssemblyInfo.cs
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.csproj.CoreCompileInputs.cache
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.sourcelink.json
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.dll
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/refint/FirstProject.dll
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.pdb
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/FirstProject.genruntimeconfig.cache
+/home/milo/Documents/dev-notes/csharp/FirstProject/obj/Debug/net10.0/ref/FirstProject.dll
