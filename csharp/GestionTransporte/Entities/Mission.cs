@@ -9,8 +9,9 @@ public class Mission
     public int AstronautId { get; set; }
     public int ShipId { get; set; }
 
-    public Ship Ship { get; set; } = null!;
+    public Ship Ship { get; set; } = null!;          
     public Astronaut Astronaut { get; set; } = null!;
     
     public ICollection<ExplorationLog> ExplorationLog { get; set; } = new List<ExplorationLog>();
 }
+
