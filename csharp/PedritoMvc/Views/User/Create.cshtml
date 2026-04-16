@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h1 class="mb-4">Crear Usuario</h1>
+
+<form>
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" placeholder="Ingrese el nombre" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input type="email" class="form-control" placeholder="Ingrese el correo" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Edad</label>
+        <input type="number" class="form-control" placeholder="Ingrese la edad" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a asp-controller="User" asp-action="Index" class="btn btn-secondary">Volver</a>
+</form> 

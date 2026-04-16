@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Detalle de Usuario";
+}
+
+<h1 class="mb-4">Detalle de Usuario</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Id:</strong> 1</p>
+        <p><strong>Nombre:</strong> Juan</p>
+        <p><strong>Correo:</strong> juan@email.com</p>
+        <p><strong>Edad:</strong> 25</p>
+    </div>
+</div>
+
+<br />
+
+<a asp-controller="User" asp-action="Edit" class="btn btn-warning">Editar</a>
+<a asp-controller="User" asp-action="Index" class="btn btn-secondary">Volver</a>

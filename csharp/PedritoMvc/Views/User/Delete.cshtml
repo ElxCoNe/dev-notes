@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<h1 class="mb-4 text-danger">Eliminar Usuario</h1>
+
+<div class="alert alert-warning">
+    seguro de que desea eliminar este usuario?
+</div>
+
+<div class="mb-3">
+    <label class="form-label"><strong>Id:</strong></label>
+    <input type="text" class="form-control" value="1" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label"><strong>Nombre:</strong></label>
+    <input type="text" class="form-control" value="Juan" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label"><strong>Correo:</strong></label>
+    <input type="text" class="form-control" value="juan@email.com" readonly />
+</div>
+
+<form>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-controller="User" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
