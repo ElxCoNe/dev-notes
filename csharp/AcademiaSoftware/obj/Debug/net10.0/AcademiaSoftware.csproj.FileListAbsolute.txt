@@ -1,0 +1,15 @@
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/bin/Debug/net10.0/AcademiaSoftware
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/bin/Debug/net10.0/AcademiaSoftware.deps.json
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/bin/Debug/net10.0/AcademiaSoftware.runtimeconfig.json
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/bin/Debug/net10.0/AcademiaSoftware.dll
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/bin/Debug/net10.0/AcademiaSoftware.pdb
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.GeneratedMSBuildEditorConfig.editorconfig
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.AssemblyInfoInputs.cache
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.AssemblyInfo.cs
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.csproj.CoreCompileInputs.cache
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.sourcelink.json
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.dll
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/refint/AcademiaSoftware.dll
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.pdb
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/AcademiaSoftware.genruntimeconfig.cache
+/home/milo/Documents/dev-notes/csharp/AcademiaSoftware/obj/Debug/net10.0/ref/AcademiaSoftware.dll

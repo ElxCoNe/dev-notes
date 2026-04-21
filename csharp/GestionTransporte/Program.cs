@@ -1,22 +1,13 @@
 ﻿using GestionTranspoorte.Entities;
 using GestionTransporte.Data;
 using Microsoft.EntityFrameworkCore;
+using GestionTranspoorte.UI;
+using GestionTranspoorte.Services;
 
 var db = new AstroNovaContext();
+var astronautService = new AstronautService(db);
 
-void SuccessMessage(string mensaje)
-{
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine($"{mensaje}");
-    Console.ResetColor();
-}
 
-void ErrorMessage(string mensaje)
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine($"{mensaje}");
-    Console.ResetColor();
-}
 
 string menuPrincipal = @"
 === AstroNova Mission Control ===
@@ -38,22 +29,14 @@ string menuCrud = @"
 
 string optionMessage = "Selecciona una opción: ";
 
-int IntValidator(string message)
-{
-    int numero;
-    do
-    {
-        Console.Write(message);
-    } while (!int.TryParse(Console.ReadLine(), out numero));
-    return numero;
-}
+
 
 bool salir = false;
 
 while (!salir)
 {
     Console.WriteLine(menuPrincipal);
-    int option = IntValidator(optionMessage);
+    int option = ConsoleHelper.IntValidator(optionMessage);
 
     switch (option)
     {
@@ -61,131 +44,29 @@ while (!salir)
         // Crud astronauta
         case 1:
             Console.WriteLine(menuCrud);
-            int optionAstronaut = IntValidator(optionMessage);
+            int optionAstronaut = ConsoleHelper.IntValidator(optionMessage);
             switch (optionAstronaut)
             {
                 case 1: // Crear
-                    Console.Write("Nombre: ");
-                    string name = Console.ReadLine() ?? string.Empty;
-                    Console.Write("Apellido: ");
-                    string lastName = Console.ReadLine() ?? string.Empty;
-                    Console.Write("Rango (novato, piloto, comandante): ");
-                    string rank = Console.ReadLine() ?? string.Empty;
-                    int hoursExperience = IntValidator("Horas de experiencia: ");
-
-                    if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
-                    {
-                        ErrorMessage("El nombre y apellido no pueden estar vacíos");
-                        break;
-                    }
-                    if (hoursExperience <= 0)
-                    {
-                        ErrorMessage("Las horas de experiencia deben ser mayores a 0");
-                        break;
-                    }
-
-                    db.Astronauts.Add(new Astronaut { Name = name, LastName = lastName, Rank = rank, ExperienceHour = hoursExperience });
-                    db.SaveChanges();
-                    SuccessMessage($"Astronauta {name} creado correctamente");
-                    break;
+                  astronautService.Create();
+                  break;
 
                 case 2: // Listar
-                    var astronauts = db.Astronauts.ToList();
-                    if (astronauts.Count == 0)
-                    {
-                        ErrorMessage("No hay astronautas registrados"); 
-                        break;
-                    }
-                    foreach (var astronaut in astronauts)
-                        Console.WriteLine($"ID: {astronaut.Id} | {astronaut.Name} {astronaut.LastName} | Rango: {astronaut.Rank} | Horas: {astronaut.ExperienceHour}");
+                    astronautService.List();
                     break;
 
                 case 3: // Actualizar
-                    int idAstronaut = IntValidator("ID del astronauta a actualizar: ");
-                    var astronautDb = db.Astronauts.Find(idAstronaut);
-                    if (astronautDb == null)
-                    {
-                        ErrorMessage($"ID {idAstronaut} no existe"); 
-                        break;
-                    }
-
-                    Console.WriteLine("1. Nombre  2. Apellido  3. Rango  4. Horas experiencia");
-                    int optUpdate = IntValidator("Selecciona qué actualizar: ");
-                    switch (optUpdate)
-                    {
-                        case 1:
-                            Console.Write("Nuevo nombre: ");
-                            string newName = Console.ReadLine();
-
-                            if (string.IsNullOrWhiteSpace(newName))
-                            {
-                                ErrorMessage("El nombre no puede estar vacío");
-                                break;
-                            }
-
-                            astronautDb.Name = newName;
-                            db.SaveChanges();
-                            SuccessMessage("Nombre actualizado correctamente");
-                            break;
-                        case 2:
-                            Console.Write("Nuevo apellido: ");
-                            string newLastName = Console.ReadLine();
-
-                            if (string.IsNullOrWhiteSpace(newLastName))
-                            {
-                                ErrorMessage("El apellido no puede estar vacío");
-                                break;
-                            }
-
-                            astronautDb.LastName = newLastName;
-                            db.SaveChanges();
-                            SuccessMessage("Apellido actualizado correctamente");
-                            break;
-                        case 3:
-                            Console.Write("Nuevo rango: ");
-                            string newRank = Console.ReadLine();
-
-                            if (string.IsNullOrWhiteSpace(newRank))
-                            {
-                                ErrorMessage("El rango no debe estar vacío");
-                                break;
-                            }
-                            astronautDb.Rank = newRank;
-                            db.SaveChanges();
-                            SuccessMessage("Rango actualizado correctamente");
-                            break;
-                        
-                        case 4:
-                            int newHours = IntValidator("Nuevas horas: ");
-                            if (newHours <= 0)
-                            {
-                                ErrorMessage("Las horas deben ser mayores a 0");
-                                break;
-                            }
-                            astronautDb.ExperienceHour = newHours;
-                            db.SaveChanges();
-                            SuccessMessage("Horas de experiencia actualizadas correctamente");
-                            break;
-                        default:
-                            ErrorMessage("Opción no válida");
-                            break;
-                    }
+                    astronautService.Update();
                     break;
 
                 case 4: // Eliminar
-                    int idDeleteAstronaut = IntValidator("ID del astronauta a eliminar: ");
-                    var astronautDelete = db.Astronauts.Find(idDeleteAstronaut);
-                    if (astronautDelete == null)
-                    {
-                        ErrorMessage($"ID {idDeleteAstronaut} no existe"); 
-                        break;
-                    }
-                    db.Astronauts.Remove(astronautDelete);
-                    db.SaveChanges();
-                    SuccessMessage("Astronauta eliminado correctamente");
+                    astronautService.Delete();
                     break;
 
-                case 5:
+                case 5:// Volver
+                    break;
+                default:
+                    ConsoleHelper.ErrorMessage("Opcion invalida");
                     break;
             }
             break;
@@ -195,7 +76,7 @@ while (!salir)
 
         case 2:
             Console.WriteLine(menuCrud);
-            int optionEngineer = IntValidator(optionMessage);
+            int optionEngineer = ConsoleHelper.IntValidator(optionMessage);
             switch (optionEngineer)
             {
                 case 1: // Crear
@@ -205,29 +86,29 @@ while (!salir)
                     string engLastName = Console.ReadLine();
                     Console.Write("Especialidad (propulsión, sistemas, IA): ");
                     string specialty = Console.ReadLine();
-                    int yearsExp = IntValidator("Años de experiencia: ");
+                    int yearsExp = ConsoleHelper.IntValidator("Años de experiencia: ");
 
                     if (string.IsNullOrWhiteSpace(engName) || string.IsNullOrWhiteSpace(engLastName))
                     {
-                        ErrorMessage("El nombre y apellido no pueden estar vacíos");
+                        ConsoleHelper.ErrorMessage("El nombre y apellido no pueden estar vacíos");
                         break;
                     }
                     if (yearsExp < 0)
                     {
-                        ErrorMessage("Los años de experiencia no pueden ser negativos");
+                        ConsoleHelper.ErrorMessage("Los años de experiencia no pueden ser negativos");
                         break;
                     }
 
                     db.Engineers.Add(new Engineer { Name = engName, LasName = engLastName, Speciality = specialty, ExperienceYears = yearsExp });
                     db.SaveChanges();
-                    SuccessMessage($"Ingeniero {engName} creado correctamente");
+                    ConsoleHelper.SuccessMessage($"Ingeniero {engName} creado correctamente");
                     break;
 
                 case 2: // Listar
                     var engineers = db.Engineers.ToList();
                     if (engineers.Count == 0)
                     {
-                        ErrorMessage("No hay ingenieros registrados"); 
+                        ConsoleHelper.ErrorMessage("No hay ingenieros registrados"); 
                         break;
                     }
                     foreach (var engineer in engineers)
@@ -235,17 +116,17 @@ while (!salir)
                     break;
 
                 case 3: // Actualizar
-                    int idEngineer = IntValidator("ID del ingeniero a actualizar: ");
+                    int idEngineer = ConsoleHelper.IntValidator("ID del ingeniero a actualizar: ");
                     var engineerDb = db.Engineers.Find(idEngineer);
                     
                     if (engineerDb == null)
                     {
-                        ErrorMessage($"ID {idEngineer} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idEngineer} no existe");
                         break;
                     }
 
                     Console.WriteLine("1. Nombre  2. Apellido  3. Especialidad  4. Años experiencia");
-                    int optUpdateEng = IntValidator("Selecciona qué actualizar: ");
+                    int optUpdateEng = ConsoleHelper.IntValidator("Selecciona qué actualizar: ");
                     switch (optUpdateEng)
                     {
                         case 1:
@@ -253,13 +134,13 @@ while (!salir)
                             string newName = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(newName))
                             {
-                                ErrorMessage("El nombre no debe estar vacio");
+                                ConsoleHelper.ErrorMessage("El nombre no debe estar vacio");
                                 break;
                             }
 
                             engineerDb.Name = newName;
                             db.SaveChanges();
-                            SuccessMessage("Nombre actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Nombre actualizado correctamente");
                             break;
                         case 2:
                             Console.Write("Nuevo apellido: ");
@@ -267,13 +148,13 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newLastName))
                             {
-                                ErrorMessage("El apellido no debe estar vacio");
+                                ConsoleHelper.ErrorMessage("El apellido no debe estar vacio");
                                 break;
                             }
 
                             engineerDb.LasName = newLastName;
                             db.SaveChanges();
-                            SuccessMessage("Apellido actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Apellido actualizado correctamente");
                             break;
                         case 3:
                             Console.Write("Nueva especialidad: ");
@@ -281,38 +162,42 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newSpecialty))
                             {
-                                ErrorMessage("El especialidad no debe estar vacio");
+                                ConsoleHelper.ErrorMessage("El especialidad no debe estar vacio");
                                 break;
                             }
 
                             engineerDb.Speciality = newSpecialty;
                             db.SaveChanges();
-                            SuccessMessage("Especialidad actualizada correctamente");
+                            ConsoleHelper.SuccessMessage("Especialidad actualizada correctamente");
                             break;
                         case 4:
-                            int newYears = IntValidator("Nuevos años: ");
-                            if (newYears < 0) { ErrorMessage("Los años no pueden ser negativos"); break; }
+                            int newYears = ConsoleHelper.IntValidator("Nuevos años: ");
+                            if (newYears < 0)
+                            {
+                                ConsoleHelper.ErrorMessage("Los años no pueden ser negativos"); 
+                                break;
+                            }
                             engineerDb.ExperienceYears = newYears;
                             db.SaveChanges();
-                            SuccessMessage("Años de experiencia actualizados correctamente");
+                            ConsoleHelper.SuccessMessage("Años de experiencia actualizados correctamente");
                             break;
                         default:
-                            ErrorMessage("Opción no válida");
+                            ConsoleHelper.ErrorMessage("Opción no válida");
                             break;
                     }
                     break;
 
                 case 4: // Eliminar
-                    int idDeleteEngineer = IntValidator("ID del ingeniero a eliminar: ");
+                    int idDeleteEngineer = ConsoleHelper.IntValidator("ID del ingeniero a eliminar: ");
                     var engineerDelete = db.Engineers.Find(idDeleteEngineer);
                     if (engineerDelete == null)
                     {
-                        ErrorMessage($"ID {idDeleteEngineer} no existe"); 
+                        ConsoleHelper.ErrorMessage($"ID {idDeleteEngineer} no existe"); 
                         break;
                     }
                     db.Engineers.Remove(engineerDelete);
                     db.SaveChanges();
-                    SuccessMessage("Ingeniero eliminado correctamente");
+                    ConsoleHelper.SuccessMessage("Ingeniero eliminado correctamente");
                     break;
 
                 case 5:
@@ -324,7 +209,7 @@ while (!salir)
         // Cud nave
         case 3:
             Console.WriteLine(menuCrud);
-            int optionShip = IntValidator(optionMessage);
+            int optionShip = ConsoleHelper.IntValidator(optionMessage);
             switch (optionShip)
             {
                 case 1: // Crear
@@ -332,31 +217,31 @@ while (!salir)
                     string shipName = Console.ReadLine();
                     Console.Write("Modelo: ");
                     string model = Console.ReadLine();
-                    int capacity = IntValidator("Capacidad de tripulación: ");
+                    int capacity = ConsoleHelper.IntValidator("Capacidad de tripulación: ");
                     Console.Write("Estado (operativa, en mantenimiento, retirada): ");
                     string shipStatus = Console.ReadLine();
 
                     if (string.IsNullOrWhiteSpace(shipName) || string.IsNullOrWhiteSpace(model))
                     {
-                        ErrorMessage("El nombre y modelo no pueden estar vacíos");
+                        ConsoleHelper.ErrorMessage("El nombre y modelo no pueden estar vacíos");
                         break;
                     }
                     if (capacity <= 0)
                     {
-                        ErrorMessage("La capacidad debe ser mayor a 0");
+                        ConsoleHelper.ErrorMessage("La capacidad debe ser mayor a 0");
                         break;
                     }
 
                     db.Ships.Add(new Ship { Name = shipName, Model = model, TripulationCapacity = capacity, Status = shipStatus });
                     db.SaveChanges();
-                    SuccessMessage($"Nave {shipName} creada correctamente");
+                    ConsoleHelper.SuccessMessage($"Nave {shipName} creada correctamente");
                     break;
 
                 case 2: // Listar
                     var ships = db.Ships.ToList();
                     if (ships.Count == 0)
                     {
-                        ErrorMessage("No hay naves registradas"); 
+                        ConsoleHelper.ErrorMessage("No hay naves registradas"); 
                         break;
                     }
                     foreach (var ship in ships)
@@ -364,16 +249,16 @@ while (!salir)
                     break;
 
                 case 3: // Actualizar
-                    int idShip = IntValidator("ID de la nave a actualizar: ");
+                    int idShip = ConsoleHelper.IntValidator("ID de la nave a actualizar: ");
                     var shipDb = db.Ships.Find(idShip);
                     if (shipDb == null)
                     {
-                        ErrorMessage($"ID {idShip} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idShip} no existe");
                         break;
                     }
 
                     Console.WriteLine("1. Nombre  2. Modelo  3. Capacidad  4. Estado");
-                    int optUpdateShip = IntValidator("Selecciona qué actualizar: ");
+                    int optUpdateShip = ConsoleHelper.IntValidator("Selecciona qué actualizar: ");
                     switch (optUpdateShip)
                     {
                         case 1:
@@ -382,13 +267,13 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newShipName))
                             {
-                                ErrorMessage("El nombre no puede estar vacio");
+                                ConsoleHelper.ErrorMessage("El nombre no puede estar vacio");
                                 break;
                             }
 
                             shipDb.Name = newShipName;
                             db.SaveChanges();
-                            SuccessMessage("Nombre actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Nombre actualizado correctamente");
                             break;
                         case 2:
                             Console.Write("Nuevo modelo: ");
@@ -396,24 +281,24 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newModel))
                             {
-                                ErrorMessage("El modelo no puede estar vacio");
+                                ConsoleHelper.ErrorMessage("El modelo no puede estar vacio");
                                 break;
                             }
 
                             shipDb.Model = newModel;
                             db.SaveChanges();
-                            SuccessMessage("Modelo actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Modelo actualizado correctamente");
                             break;
                         case 3:
-                            int newCapacity = IntValidator("Nueva capacidad: ");
+                            int newCapacity = ConsoleHelper.IntValidator("Nueva capacidad: ");
                             if (newCapacity <= 0)
                             {
-                                ErrorMessage("La capacidad debe ser mayor a 0"); 
+                                ConsoleHelper.ErrorMessage("La capacidad debe ser mayor a 0"); 
                                 break;
                             }
                             shipDb.TripulationCapacity = newCapacity;
                             db.SaveChanges();
-                            SuccessMessage("Capacidad actualizada correctamente");
+                            ConsoleHelper.SuccessMessage("Capacidad actualizada correctamente");
                             break;
                         case 4:
                             Console.Write("Nuevo estado: ");
@@ -421,31 +306,31 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newStatus))
                             {
-                                ErrorMessage("El estado no puede estar vacio");
+                                ConsoleHelper.ErrorMessage("El estado no puede estar vacio");
                                 break;
                             }
 
                             shipDb.Status = newStatus;
                             db.SaveChanges();
-                            SuccessMessage("Estado actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Estado actualizado correctamente");
                             break;
                         default:
-                            ErrorMessage("Opción no válida");
+                            ConsoleHelper.ErrorMessage("Opción no válida");
                             break;
                     }
                     break;
 
                 case 4: // Eliminar
-                    int idDeleteShip = IntValidator("ID de la nave a eliminar: ");
+                    int idDeleteShip = ConsoleHelper.IntValidator("ID de la nave a eliminar: ");
                     var shipDelete = db.Ships.Find(idDeleteShip);
                     if (shipDelete == null)
                     {
-                        ErrorMessage($"ID {idDeleteShip} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idDeleteShip} no existe");
                         break;
                     }
                     db.Ships.Remove(shipDelete);
                     db.SaveChanges();
-                    SuccessMessage("Nave eliminada correctamente");
+                    ConsoleHelper.SuccessMessage("Nave eliminada correctamente");
                     break;
 
                 case 5:
@@ -458,7 +343,7 @@ while (!salir)
 
         case 4:
             Console.WriteLine(menuCrud);
-            int optionMission = IntValidator(optionMessage);
+            int optionMission = ConsoleHelper.IntValidator(optionMessage);
             switch (optionMission)
             {
                 case 1: // Crear
@@ -468,8 +353,8 @@ while (!salir)
                     DateTime missionDate = DateTime.Parse(Console.ReadLine());
                     Console.Write("Estado (planificada, en curso, completada, fallida): ");
                     string missionStatus = Console.ReadLine();
-                    int astronautId = IntValidator("ID del astronauta: ");
-                    int shipId = IntValidator("ID de la nave: ");
+                    int astronautId = ConsoleHelper.IntValidator("ID del astronauta: ");
+                    int shipId = ConsoleHelper.IntValidator("ID de la nave: ");
 
                     // Verificar que el astronauta y la nave existen
                     var astronautMission = db.Astronauts.Find(astronautId);
@@ -477,19 +362,19 @@ while (!salir)
 
                     if (astronautMission == null)
                     {
-                        ErrorMessage($"El astronauta con ID {astronautId} no existe"); 
+                        ConsoleHelper.ErrorMessage($"El astronauta con ID {astronautId} no existe"); 
                         break;
                     }
 
                     if (shipMission == null)
                     {
-                        ErrorMessage($"La nave con ID {shipId} no existe"); 
+                        ConsoleHelper.ErrorMessage($"La nave con ID {shipId} no existe"); 
                         break;
                     }
 
                     db.Missions.Add(new Mission { MisionName = missionName, MissionDate = missionDate, Status = missionStatus, AstronautId = astronautId, ShipId = shipId });
                     db.SaveChanges();
-                    SuccessMessage($"Misión {missionName} creada correctamente");
+                    ConsoleHelper.SuccessMessage($"Misión {missionName} creada correctamente");
                     break;
 
                 case 2: // Listar
@@ -499,7 +384,7 @@ while (!salir)
                         .ToList();
                     if (missions.Count == 0)
                     {
-                        ErrorMessage("No hay misiones registradas"); 
+                        ConsoleHelper.ErrorMessage("No hay misiones registradas"); 
                         break;
                     }
                     foreach (var mission in missions)
@@ -507,16 +392,16 @@ while (!salir)
                     break;
 
                 case 3: // Actualizar
-                    int idMission = IntValidator("ID de la misión a actualizar: ");
+                    int idMission = ConsoleHelper.IntValidator("ID de la misión a actualizar: ");
                     var missionDb = db.Missions.Find(idMission);
                     if (missionDb == null)
                     {
-                        ErrorMessage($"ID {idMission} no existe"); 
+                        ConsoleHelper.ErrorMessage($"ID {idMission} no existe"); 
                         break;
                     }
 
                     Console.WriteLine("1. Nombre  2. Fecha  3. Estado");
-                    int optUpdateMission = IntValidator("Selecciona qué actualizar: ");
+                    int optUpdateMission = ConsoleHelper.IntValidator("Selecciona qué actualizar: ");
                     switch (optUpdateMission)
                     {
                         case 1:
@@ -525,50 +410,50 @@ while (!salir)
                             string newName = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(newName))
                             {
-                                ErrorMessage("El nombre no puede estar vacío");
+                                ConsoleHelper.ErrorMessage("El nombre no puede estar vacío");
                                 break;
                             }
 
                             missionDb.MisionName = newName;
                             db.SaveChanges();
-                            SuccessMessage("Nombre de misión actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Nombre de misión actualizado correctamente");
                             break;
                         case 2:
                             Console.Write("Nueva fecha (yyyy-MM-dd): ");
                             missionDb.MissionDate = DateTime.Parse(Console.ReadLine());
                             db.SaveChanges();
-                            SuccessMessage("Fecha de misión actualizada correctamente");
+                            ConsoleHelper.SuccessMessage("Fecha de misión actualizada correctamente");
                             break;
                         case 3:
                             Console.Write("Nuevo estado: ");
                             string newStatus =  Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(newStatus))
                             {
-                                ErrorMessage("El estado no puede estar vacío");
+                                ConsoleHelper.ErrorMessage("El estado no puede estar vacío");
                                 break;
                             }
 
                             missionDb.Status = newStatus;
                             db.SaveChanges();
-                            SuccessMessage("Estado de misión actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Estado de misión actualizado correctamente");
                             break;
                         default:
-                            ErrorMessage("Opción no válida");
+                            ConsoleHelper.ErrorMessage("Opción no válida");
                             break;
                     }
                     break;
 
                 case 4: // Eliminar
-                    int idDeleteMission = IntValidator("ID de la misión a eliminar: ");
+                    int idDeleteMission = ConsoleHelper.IntValidator("ID de la misión a eliminar: ");
                     var missionDelete = db.Missions.Find(idDeleteMission);
                     if (missionDelete == null)
                     {
-                        ErrorMessage($"ID {idDeleteMission} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idDeleteMission} no existe");
                         break;
                     }
                     db.Missions.Remove(missionDelete);
                     db.SaveChanges();
-                    SuccessMessage("Misión eliminada correctamente");
+                    ConsoleHelper.SuccessMessage("Misión eliminada correctamente");
                     break;
 
                 case 5:
@@ -580,7 +465,7 @@ while (!salir)
 
         case 5:
             Console.WriteLine(menuCrud);
-            int optionLog = IntValidator(optionMessage);
+            int optionLog = ConsoleHelper.IntValidator(optionMessage);
             switch (optionLog)
             {
                 case 1: // Crear
@@ -590,46 +475,46 @@ while (!salir)
                     string description = Console.ReadLine();
                     Console.Write("Nivel de riesgo (bajo, medio, alto): ");
                     string riskLevel = Console.ReadLine();
-                    int missionId = IntValidator("ID de la misión: ");
+                    int missionId = ConsoleHelper.IntValidator("ID de la misión: ");
 
                     var missionLog = db.Missions.Find(missionId);
                     if (missionLog == null)
                     {
-                        ErrorMessage($"La misión con ID {missionId} no existe"); 
+                        ConsoleHelper.ErrorMessage($"La misión con ID {missionId} no existe"); 
                         break;
                     }
 
                     if (string.IsNullOrWhiteSpace(planet))
                     {
-                        ErrorMessage("El planeta destino no puede estar vacío");
+                        ConsoleHelper.ErrorMessage("El planeta destino no puede estar vacío");
                         break;
                     }
 
                     db.ExplorationLogs.Add(new ExplorationLog { PlanetDestiny = planet, Description = description, Status = riskLevel, MissionId = missionId });
                     db.SaveChanges();
-                    SuccessMessage($"Registro de exploración hacia {planet} creado correctamente");
+                    ConsoleHelper.SuccessMessage($"Registro de exploración hacia {planet} creado correctamente");
                     break;
 
                 case 2: // Listar
                     var logs = db.ExplorationLogs
                         .Include(r => r.Mission)
                         .ToList();
-                    if (logs.Count == 0) { ErrorMessage("No hay registros de exploración"); break; }
+                    if (logs.Count == 0) { ConsoleHelper.ErrorMessage("No hay registros de exploración"); break; }
                     foreach (var log in logs)
                         Console.WriteLine($"ID: {log.Id} | Planeta: {log.PlanetDestiny} | Riesgo: {log.Status} | Misión: {log.Mission.MisionName}");
                     break;
 
                 case 3: // Actualizar
-                    int idLog = IntValidator("ID del registro a actualizar: ");
+                    int idLog = ConsoleHelper.IntValidator("ID del registro a actualizar: ");
                     var logDb = db.ExplorationLogs.Find(idLog);
                     if (logDb == null)
                     {
-                        ErrorMessage($"ID {idLog} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idLog} no existe");
                         break;
                     }
 
                     Console.WriteLine("1. Planeta  2. Descripción  3. Nivel de riesgo");
-                    int optUpdateLog = IntValidator("Selecciona qué actualizar: ");
+                    int optUpdateLog = ConsoleHelper.IntValidator("Selecciona qué actualizar: ");
                     switch (optUpdateLog)
                     {
                         case 1:
@@ -638,56 +523,56 @@ while (!salir)
 
                             if (string.IsNullOrWhiteSpace(newPlanet))
                             {
-                                ErrorMessage("El planeta no puede estar vacío");
+                                ConsoleHelper.ErrorMessage("El planeta no puede estar vacío");
                                 break;
                             }
                             logDb.PlanetDestiny = newPlanet;
                             db.SaveChanges();
-                            SuccessMessage("Planeta actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Planeta actualizado correctamente");
                             break;
                         case 2:
                             Console.Write("Nueva descripción: ");
                             string newDescription = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(newDescription))
                             {
-                                ErrorMessage("La descripción no puede estar vacía");
+                                ConsoleHelper.ErrorMessage("La descripción no puede estar vacía");
                                 break;
                             }
                             
                             logDb.Description = newDescription;
                             db.SaveChanges();
-                            SuccessMessage("Descripción actualizada correctamente");
+                            ConsoleHelper.SuccessMessage("Descripción actualizada correctamente");
                             break;
                         case 3:
                             Console.Write("Nuevo nivel de riesgo (bajo, medio, alto): ");
                             string newRiskLevel = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(newRiskLevel))
                             {
-                                ErrorMessage("El nivel de riesgo no puede estar vacío");
+                                ConsoleHelper.ErrorMessage("El nivel de riesgo no puede estar vacío");
                                 break;
                             }
                             logDb.Status = newRiskLevel;
                             db.SaveChanges();
-                            SuccessMessage("Nivel de riesgo actualizado correctamente");
+                            ConsoleHelper.SuccessMessage("Nivel de riesgo actualizado correctamente");
                             break;
                             
                         default:
-                            ErrorMessage("Opción no válida");
+                            ConsoleHelper.ErrorMessage("Opción no válida");
                             break;
                     }
                     break;
 
                 case 4: // Eliminar
-                    int idDeleteLog = IntValidator("ID del registro a eliminar: ");
+                    int idDeleteLog = ConsoleHelper.IntValidator("ID del registro a eliminar: ");
                     var logDelete = db.ExplorationLogs.Find(idDeleteLog);
                     if (logDelete == null)
                     {
-                        ErrorMessage($"ID {idDeleteLog} no existe");
+                        ConsoleHelper.ErrorMessage($"ID {idDeleteLog} no existe");
                         break;
                     }
                     db.ExplorationLogs.Remove(logDelete);
                     db.SaveChanges();
-                    SuccessMessage("Registro de exploración eliminado correctamente");
+                    ConsoleHelper.SuccessMessage("Registro de exploración eliminado correctamente");
                     break;
 
                 case 5:
@@ -697,11 +582,11 @@ while (!salir)
 
         case 0:
             salir = true;
-            SuccessMessage("¡Hasta luego!");
+            ConsoleHelper.SuccessMessage("¡Hasta luego!");
             break;
 
         default:
-            ErrorMessage("Opción no válida, intenta de nuevo");
+            ConsoleHelper.ErrorMessage("Opción no válida, intenta de nuevo");
             break;
     }
 }

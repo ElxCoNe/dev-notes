@@ -1,0 +1,15 @@
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/bin/Debug/net10.0/RegistroUsuarios
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/bin/Debug/net10.0/RegistroUsuarios.deps.json
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/bin/Debug/net10.0/RegistroUsuarios.runtimeconfig.json
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/bin/Debug/net10.0/RegistroUsuarios.dll
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/bin/Debug/net10.0/RegistroUsuarios.pdb
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.GeneratedMSBuildEditorConfig.editorconfig
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.AssemblyInfoInputs.cache
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.AssemblyInfo.cs
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.csproj.CoreCompileInputs.cache
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.sourcelink.json
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.dll
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/refint/RegistroUsuarios.dll
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.pdb
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/RegistroUsuarios.genruntimeconfig.cache
+/home/milo/Documents/dev-notes/csharp/RegistroUsuarios/obj/Debug/net10.0/ref/RegistroUsuarios.dll

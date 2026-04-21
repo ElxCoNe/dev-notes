@@ -56,3 +56,8 @@ Métodos en C#
      Console.WriteLine( $ " Hello, { name } ! " ); 
 } 
 
+
+estudiar indempotencia
+interfaz
+principios solid
+

@@ -1,0 +1,28 @@
+Luego de hacer los pasos para tener un contenedor activo a apartir de una imagen, hacer lo siguiente:
+
+Nota: Recordar que el proyecto se crea en la ruta /var/www/CarpetaProyecto/Proyecto clonado
+
+1. ir a /etc/nginx/sites-available
+2. Crear un sudo vim nombre-x
+3. Pegar lo siguiente:
+server {
+    listen 80;
+    server_name  domain.com;
+
+    location / {
+        proxy_pass http://localhost:8080;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+4.Crear archivo espejo que este en sites-enabled:
+ln -s /etc/nginx/sites-available/nombre-x /etc/nginx/sites-enabled
+
+5. Revias en sites-enabled si se creo y esta bien configurado
+6. Hacer sudo service nginx restart
+7. Instalar el certificado con certbot, ir a la pagina y ver documentacion

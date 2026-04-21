@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PedritoMvc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4caa9f58ac47a49309122084a24276aac9e7b63d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d018fe56d8254c075227d2c38019d534c3747652")]
 [assembly: System.Reflection.AssemblyProductAttribute("PedritoMvc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PedritoMvc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

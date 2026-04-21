@@ -1,6 +1,6 @@
 namespace GestionTranspoorte.UI;
 
-public static class d
+public static class ConsoleHelper
 {
     public static void SuccessMessage(string mensaje)
     {

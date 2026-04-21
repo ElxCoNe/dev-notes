@@ -1,0 +1,15 @@
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/bin/Debug/net10.0/ClinicaSalud
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/bin/Debug/net10.0/ClinicaSalud.deps.json
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/bin/Debug/net10.0/ClinicaSalud.runtimeconfig.json
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/bin/Debug/net10.0/ClinicaSalud.dll
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/bin/Debug/net10.0/ClinicaSalud.pdb
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.GeneratedMSBuildEditorConfig.editorconfig
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.AssemblyInfoInputs.cache
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.AssemblyInfo.cs
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.csproj.CoreCompileInputs.cache
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.sourcelink.json
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.dll
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/refint/ClinicaSalud.dll
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.pdb
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ClinicaSalud.genruntimeconfig.cache
+/home/milo/Documents/dev-notes/csharp/ClinicaSalud/obj/Debug/net10.0/ref/ClinicaSalud.dll
