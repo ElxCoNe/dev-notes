@@ -39,8 +39,9 @@ Crear un contenedor basado en la imagen que creamos:
 docker run -d -p 8084:8080 --name container-net ImageName
 
 ------------------------------------------------------------------------
+dotnet tool install --global dotnet-ef
 
-dotnet ef migration add
+dotnet ef migration add InitialCreate
 
 dotnet ef database update
 
