@@ -30,7 +30,7 @@ ENTRYPOINT ["dotnet", "ProjectName.dll"]
 
 
 Crear la imagen con un nombre en la raiz:
-docker build -t ImageName .
+docker build -t Image-name .
 
 Ver las imagenes:
 docker images
@@ -38,7 +38,27 @@ docker images
 Crear un contenedor basado en la imagen que creamos:
 docker run -d -p 8084:8080 --name container-net ImageName
 
+------------------------------------------------------------------------
 
 dotnet ef migration add
 
 dotnet ef database update
+
+# EF Core para MySQL
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+
+# EF Core herramientas
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+# MailKit para correos ← reemplaza SmtpClient
+dotnet add package MailKit
+
+
+
+1. ¿Un [A] puede tener muchos [B]?
+2. ¿Un [B] puede tener muchos [A]?
+
+Ambas sí  → Muchos a Muchos → tabla puente
+Solo la 1 → Uno a Muchos   → FK en B
+Ninguna   → Uno a Uno      → FK en cualquiera
