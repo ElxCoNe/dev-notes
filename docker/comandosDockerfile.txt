@@ -1,4 +1,15 @@
 
+docker logs --tail=80 db_postgres
+docker volume ls
+docker volume rm *name*
+docker compose up -d
+docker compose stop
+docker compose start
+docker ps
+docker ps -a 
+docker stop *name*
+docker start *name*
+
 Crear en la raiz del proyecto un archivo Dockerfile para crear la imagen:
  
 # Etapa 1: Build

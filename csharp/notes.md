@@ -1,3 +1,24 @@
+Program.cs se ejecuta → arranca la aplicación y registra los servicios
+        ↓
+La aplicación queda esperando peticiones (HTTP)
+        ↓
+Llega una petición, por ejemplo GET /users
+        ↓
+ASP.NET busca qué controlador maneja esa ruta
+        ↓
+Para crear ese controlador ve que necesita un UserService
+        ↓
+Lo crea porque está registrado en Program.cs
+        ↓
+Lo inyecta en el constructor
+
+
+
+1. Response/Request → primero defines con qué datos vas a trabajar
+2. Service → la lógica de negocio, aquí consultas el DbContext
+3. Controller → llama al service y pasa los datos a la vista
+4. View → lo último porque ya sabes exactamente qué datos vas a recibir
+
 Formatos de impresión en C# 
 
 **Inicializar proyecto en C#
